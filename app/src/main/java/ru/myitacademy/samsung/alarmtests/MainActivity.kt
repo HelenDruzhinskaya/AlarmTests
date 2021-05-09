@@ -61,7 +61,8 @@ fun repeatAlarm(v:View){
     //теперь создадим "экономную" сигнализацию
     //она будет отправлять уведомления каждые 15 минут и не будет "будить" устройство
     fun nearAlarm(v: View){
-        some()
+        //чтобы уведомления приходили на Android 8.0 и выше, для них нужен канал
+     createNotificationChannel()
      val am = getSystemService(Context.ALARM_SERVICE) as AlarmManager
      val mIntent = Intent(this, AlarmReceiverNotify::class.java)
      val  penIntent = PendingIntent.getBroadcast(this,25,mIntent,0)
@@ -77,7 +78,7 @@ fun repeatAlarm(v:View){
       val  am = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         if (penIntent != null && am != null) am.cancel(penIntent)
     }
-fun some(){
+fun createNotificationChannel(){
     val CID = "TestNotify"
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val name = "name"
